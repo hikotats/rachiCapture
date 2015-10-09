@@ -1,0 +1,25 @@
+{
+  "name": "casperjs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "nodetest.js",
+  "dependencies": {
+    "coffee-script": "^1.9.3",
+    "del": "^1.2.0",
+    "gm": "^1.18.1",
+    "gulp": "^3.9.0",
+    "gulp-shell": "^0.4.2",
+    "phantomjs": "^1.9.7-15",
+    "run-sequence": "^1.1.1"
+  },
+  "devDependencies": {
+    "gm": "^1.18.1",
+    "gulp": "^3.9.0",
+    "recursive-readdir": "^1.2.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
