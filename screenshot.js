@@ -17,7 +17,7 @@ var props = {
 
 var casper = require('casper').create();
 
-var url = casper.cli.args[0] || "https://market.airregi.jp";
+var url = casper.cli.args[0] || "http://example.com";
 var saveDir = casper.cli.args[1] || "_old";
 var prop = casper.cli.args[2] == "mobile" ? props.mobile : props.pc;
 
