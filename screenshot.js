@@ -1,3 +1,6 @@
+var fs = require('fs');
+var json = JSON.parse(fs.read('pageLists.json'));
+
 var props = {
     // Chrome
     pc:{
@@ -14,25 +17,26 @@ var props = {
 
 var casper = require('casper').create();
 
-var url = casper.cli.args[0] || "http://yahoo.co.jp";
+var url = casper.cli.args[0] || "https://market.airregi.jp";
 var saveDir = casper.cli.args[1] || "_old";
 var prop = casper.cli.args[2] == "mobile" ? props.mobile : props.pc;
 
-//var opt = casper.cli.args[2] = "--ssl-protocol=tlsv1";
 casper.start();
 casper.userAgent(prop.ua);
 casper.zoom(1);
 casper.viewport(prop.viewport.width, prop.viewport.height);
 
-var tmp = require('./pageLists');
-var pages = tmp.getPages();
-
-pages.forEach(function(page, idx){
-    casper.then(function (){
-        casper.open( url + page ).then(function(){
-            console.log( "capturing[" + idx + "]: " + url + page );
-            this.capture( saveDir + page + '.png');
-        });
+casper.start().each(json, function(self, link, i) {
+    self.thenOpen(url + json[i].path, function(status) {
+        if (url + json[i].path === this.getCurrentUrl()) {
+            this.echo( "Successful open [" + i + "]: " + url + json[i].path );
+            this.capture( saveDir + json[i].path + ".png");
+            this.echo("Captured: " + saveDir + json[i].path + ".png");
+            this.echo("------------------------------------------")
+        } else {
+            this.echo("Failed to open [" + i + "]: " + url + json[i].path);
+            this.echo("------------------------------------------")
+        }
     });
 });
 
